@@ -3,24 +3,12 @@ module.exports = {
     browser: true,
     es2021: true,
     node: true,
+    // 这里增加一行，用于支持后面的测试环境
     jest: true,
   },
-  extends: 'airbnb-base',
-  overrides: [
-    {
-      env: {
-        node: true,
-      },
-      files: [
-        '.eslintrc.{js,cjs}',
-      ],
-      parserOptions: {
-        sourceType: 'script',
-      },
-    },
-  ],
+  extends: ['airbnb-base'],
   parserOptions: {
-    ecmaVersion: 'latest',
+    ecmaVersion: 15,
     sourceType: 'module',
   },
   rules: {
