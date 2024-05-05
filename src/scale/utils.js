@@ -45,3 +45,49 @@ export function ceil(n, base) {
 export function floor(n, base) {
   return base * Math.floor(n / base);
 }
+
+export function equal(a, b) {
+  return JSON.stringify(a) === JSON.stringify(b);
+}
+
+export function band({ domain, range, padding }) {
+  const [r0, r1] = range;
+  const n = domain.length;
+  const step = (r1 - r0) / (n + padding);
+  const bandWidth = step * (1 - padding);
+  const interval = step - bandWidth;
+  const x = (_, i) => r0 + interval + step * i;
+  return {
+    step,
+    bandWidth,
+    bandRange: new Array(n).fill(0).map(x),
+  };
+}
+
+export function log(n, base) {
+  return Math.log(n) / Math.log(base);
+}
+
+export function bisect(
+  array,
+  x,
+  lo = 0,
+  hi = array.length,
+  accessor = identity,
+) {
+  let i = lo;
+  let j = hi;
+  while (i < j) {
+    const mid = Math.floor((i + j) / 2);
+    if (accessor(array[mid]) < x) {
+      i = mid + 1;
+    } else {
+      j = mid;
+    }
+  }
+  return i;
+}
+
+export function identity(x) {
+  return x;
+}
