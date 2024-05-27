@@ -1,3 +1,5 @@
-import { curry, compose } from './helper';
-
-export { curry, compose };
+export * from './helper';
+export * from './vector';
+export * from './array';
+export * from './tree';
+export * from './dom';

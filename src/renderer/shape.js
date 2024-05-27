@@ -35,9 +35,6 @@ export function circle(context, attributes) {
   return shape('circle', context, attributes);
 }
 
-// text 元素是将展示内容放在标签内部，而不是作为标签的属性
-// <text text='content' /> ❌
-// <text>content</text> ✅
 export function text(context, attributes) {
   const { text, ...rest } = attributes;
   const textElement = shape('text', context, rest);
@@ -45,20 +42,12 @@ export function text(context, attributes) {
   return textElement;
 }
 
-// 对 path 不熟悉的同学可以去这里学习
-// https://developer.mozilla.org/zh-CN/docs/Web/SVG/Tutorial/Paths
-// path 的属性 d （路径）是一个字符串，拼接起来比较麻烦，这里我们通过数组去生成
-// [
-//  ['M', 10, 10],
-//  ['L', 100, 100],
-//  ['L', 100, 10],
-//  ['Z'],
-// ];
-// 上面的二维数组会被转换成如下的字符串
-// 'M 10 10 L 100 100 L 100 10 Z'
 export function path(context, attributes) {
   const { d } = attributes;
-  return shape('path', context, { ...attributes, d: d.flat().join(' ') });
+  return shape('path', context, {
+    ...attributes,
+    d: Array.isArray(d) ? d.flat().join(' ') : '',
+  });
 }
 
 export function ring(context, attributes) {
